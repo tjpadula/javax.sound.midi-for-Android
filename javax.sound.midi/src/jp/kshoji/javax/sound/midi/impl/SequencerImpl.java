@@ -2,6 +2,8 @@ package jp.kshoji.javax.sound.midi.impl;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 
@@ -268,8 +270,9 @@ public class SequencerImpl implements Sequencer {
                         for (final MetaEventListener metaEventListener : metaEventListeners) {
                             metaEventListener.meta((MetaMessage) message);
                         }
-                    } catch (final ConcurrentModificationException ignored) {
+                    } catch (final ConcurrentModificationException e) {
                         // FIXME why this exception will be thrown? ... ignore it.
+                        Log.d("Error", "Exception informing meta listeners: " + e);
                     }
                 }
             } else if (message instanceof ShortMessage) {
@@ -283,8 +286,9 @@ public class SequencerImpl implements Sequencer {
                                     eventListener.controlChange(shortMessage);
                                 }
                             }
-                        } catch (final ConcurrentModificationException ignored) {
+                        } catch (final ConcurrentModificationException e) {
                             // ignore exception
+                            Log.d("Error", "Exception informing message listeners: " + e);
                         }
                     }
                 }
@@ -551,9 +555,10 @@ public class SequencerImpl implements Sequencer {
                 try {
                     // at first, merge all track into one track
                     playingTrack = TrackUtils.mergeSequenceToTrack(SequencerImpl.this, recordEnable);
-                } catch (final InvalidMidiDataException ignored) {
+                } catch (final InvalidMidiDataException e) {
                     // ignore exception
-                }
+                     Log.d("Error", "Exception merging tracks: " + e);
+               }
             }
         }
 
@@ -625,8 +630,9 @@ public class SequencerImpl implements Sequencer {
             sequencerThread.setName("MidiSequencer_" + sequencerThread.getId());
             try {
                 sequencerThread.start();
-            } catch (final IllegalThreadStateException ignored) {
+            } catch (final IllegalThreadStateException e) {
                 // maybe already started
+                Log.d("Error", "Exception starting sequencer thread: " + e);
             }
         }
 

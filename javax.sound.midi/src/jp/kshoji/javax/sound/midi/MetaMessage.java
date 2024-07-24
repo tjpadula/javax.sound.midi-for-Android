@@ -169,12 +169,14 @@ public class MetaMessage extends MidiMessage {
      */
 	private static void writeMidiValues(@NonNull final byte[] data, final int offset, final long value) {
 		int shift = 63;
-		while ((shift > 0) && ((value & (0x7f << shift)) == 0)) {
+		// The two long coercions here are necessary because Java will otherwise treat
+		// the value as a 32-bit integer, and mangle the shifting.
+		while ((shift > 0) && ((value & ((long)0x7f << shift)) == 0)) {
 			shift -= 7;
 		}
 		int currentOffset = offset;
 		while (shift > 0) {
-			data[currentOffset++] = (byte) (((value & (0x7f << shift)) >> shift) | 0x80);
+			data[currentOffset++] = (byte) (((value & ((long)0x7f << shift)) >> shift) | 0x80);
 			shift -= 7;
 		}
 		data[currentOffset] = (byte) (value & 0x7f);
