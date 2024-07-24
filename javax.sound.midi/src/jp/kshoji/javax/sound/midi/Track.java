@@ -207,4 +207,26 @@ public class Track {
 			return events.get(events.size() - 1).getTick();
 		}
 	}
+
+	/*
+	 * Get a list of all {@link MidiEvent}s at the given tick time on this {@link Track}.
+	 *
+	 * @param tick time, if negative the returned list will be empty
+	 * @return List<MIDIEvent> containing a list of ticks, which may be empty
+	 */
+	public ArrayList<MidiEvent> eventsAtTick(long inTick) {
+
+		ArrayList<MidiEvent> anEvents = new ArrayList<>();
+		if (inTick < 0) {
+			return anEvents;
+		}
+
+		for (MidiEvent anEvent : events) {
+			if (anEvent.getTick() == inTick) {
+				anEvents.add(anEvent);
+			}
+		}
+
+		return anEvents;
+	}
 }
