@@ -64,7 +64,7 @@ android {
         }
     }
 
-    namespace 'jp.kshoji.javax.sound.midi'
+    namespace 'com.github.tjpadula.javax.sound.midi'
 
     buildFeatures {
         renderScript true
@@ -75,9 +75,10 @@ android {
 publishing {
     publications {
         release(MavenPublication) {
-            group = 'jp.kshoji'
+//            group = 'jp.kshoji'
+            group = 'com.github.tjpadula'
             artifactId = 'javax-sound-midi'
-            version = '0.0.7'
+            version = '0.0.8'
 
             afterEvaluate {
                 from components.release
