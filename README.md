@@ -14,6 +14,19 @@ Reasons for this fork:
 - Add logging for unexpected exceptions in the sequencer.
 - Add ability to get all events at a given time on a track.
 
+To use this library, put this in your app's build.gradle dependencies:
+
+implementation 'com.github.tjpadula:javax.sound.midi-for-Android:v0.0.8-alpha'
+
+...and ensure that you have this reference to jitpack line in settings.gradle: 
+
+dependencyResolutionManagement {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+
 Usage of the library
 --------------------
 
