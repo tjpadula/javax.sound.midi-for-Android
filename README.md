@@ -6,6 +6,14 @@ It's used with `USB MIDI Driver` project or `BLE MIDI for Android` project.
 
 Using this library, the existing Java MIDI project can be ported to Android app easily.
 
+--------------------
+
+Reasons for this fork:
+
+- Fix the shifting bug when writing meta message data to a MIDI file. 
+- Add logging for unexpected exceptions in the sequencer.
+- Add ability to get all events at a given time on a track.
+
 Usage of the library
 --------------------
 
